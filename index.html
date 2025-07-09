@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         #imageContainer img {
-            max-width: 743px;
+            width: 100%;
         }
     </style>
 </head>
@@ -151,8 +151,7 @@
                             $('<img>')
                                 .attr({
                                     src: imagePath,
-                                    alt: `${model.name} 사용설명서`,
-                                    style: 'max-width: 743px;'
+                                    alt: `${model.name} 사용설명서`
                                 })
                                 .addClass('h-auto object-contain')
                         )
