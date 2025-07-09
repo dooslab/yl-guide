@@ -36,6 +36,22 @@
         #imageContainer img {
             width: 100%;
         }
+        .model-code {
+            font-weight: 600;
+            font-size: 12px; 
+            background: #e3e3e3;
+            line-height: 18px;
+            border-radius: 2px;
+            color: #000000;
+            text-align: center;
+            min-width: 65px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .model-name {
+            font-size: 13px;
+            line-height: 14px;
+        }
         main {
             max-width: 960px;
         }
@@ -147,9 +163,13 @@
                 $modelList.empty();
                 
                 items.forEach(item => {
+                    //모델과 명칭 분리
+                    const model = item.name.split('[')[0];
+                    const name = item.name.split('[')[1].split(']')[0];
+                    const elItem = '<span class="model-code">'+model+'</span> <span class="model-name">'+name+'</span>';
                     $('<li>')
                         .addClass('px-1 py-2 border-b text-sm mx-4 border-gray-200 hover:bg-gray-100 cursor-pointer transition-colors')
-                        .text(`${item.name}`)
+                        .html(elItem)
                         .data('model', item) // 모델 데이터를 요소에 저장
                         .appendTo($modelList);
                 });
