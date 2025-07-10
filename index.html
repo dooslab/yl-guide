@@ -36,6 +36,16 @@
         #imageContainer img {
             width: 100%;
         }
+        #modelLink {
+            text-align: right;
+        }
+        #modelLink a {
+            background: #cdcdcd;
+            padding: 6px 12px;
+            border-radius: 3px;
+            color: #000;
+            font-weight: bold;
+        }
         .model-code {
             font-weight: 600;
             font-size: 12px; 
@@ -98,6 +108,7 @@
             <!-- 이미지 표시 영역 -->
             <main class="p-6">
                 <div id="currentModel" class="title text-xl font-bold mb-4"></div>
+                <div id="modelLink" class="text-sm text-gray-500 mb-4 hidden"></div>
                 <div id="imageContainer" class="grid gap-6">
                     <!-- 이미지들이 여기에 동적으로 로드됩니다 -->
                 </div>
@@ -119,6 +130,9 @@
             const modelItems = [
                 {
                     name: 'YL-HF10 [ 저소음 손 선풍기 ]',
+                    link: {
+                        'coupang': 'https://www.coupang.com/vp/products/8709848487'
+                    },
                     images: [
                         './guide_images/YL-HF10/YL-HF10_01.jpg',
                         './guide_images/YL-HF10/YL-HF10_02.jpg',
@@ -131,18 +145,27 @@
                 },
                 {
                     name: 'YL-DF101 [ 유선 탁상 선풍기 ]',
+                    link: {
+                        'coupang': 'https://www.coupang.com/vp/products/8799255430'
+                    },
                     images: [
                         './guide_images/YL-DF101/YL-DF101.jpg',
                     ]
                 },
                 {
                     name: 'YL-DF102 [ 무선 탁상 선풍기 ]',
+                    link: {
+                        'coupang': 'https://www.coupang.com/vp/products/8769753259'
+                    },
                     images: [
                         './guide_images/YL-DF102/YL-DF102.jpg',
                     ]
                 },
                 {
                     name: 'YL-FC03 [ 에어컨 손 선풍기 ]',
+                    link: {
+                        'coupang': 'https://www.coupang.com/vp/products/8880167003'
+                    },
                     images: [
                         './guide_images/YL-FC03/YL-FC03_01.jpg',
                     ]
@@ -150,6 +173,7 @@
                 ,
                 {
                     name: 'YL-SCFB1 [ 휴대용 진동클렌저 ]',
+                    link: {},
                     images: [
                         './guide_images/YL-SCFB1/YL-SCFB1_1.jpg',
                         './guide_images/YL-SCFB1/YL-SCFB1_2.jpg',
@@ -177,8 +201,7 @@
 
             // 모델 리스트 클릭 이벤트
             $('#modelList').on('click', 'li', function() {
-                const model = $(this).data('model');
-                $('#currentModel').text(`${model.name} 사용설명서`);
+                const model = $(this).data('model'); 
                 loadImages(model);
                 
                 // 모바일에서 사이드바 닫기
@@ -190,7 +213,16 @@
             function loadImages(model) {
                 const $imageContainer = $('#imageContainer');
                 $imageContainer.empty();
-                $('#currentModel').text(`${model.name} 사용설명서`);
+                $('#modelLink').hide();
+                $('#currentModel').text(`${model.name}`);
+                if(model.link.coupang) {
+                    const btnLink = $('<a>')    
+                        .attr('href', model.link.coupang)
+                        .attr('target', '_blank')
+                        .addClass('text-sm')
+                        .text('보러가기');
+                    $('#modelLink').show().html(btnLink);
+                }
                 model.images.forEach(imagePath => {
                     $('<div>')
                         .addClass('bg-white p-4 rounded-lg shadow')
